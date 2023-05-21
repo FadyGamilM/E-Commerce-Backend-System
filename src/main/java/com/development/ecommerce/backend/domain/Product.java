@@ -48,6 +48,10 @@ public class Product {
     // not the Dependent entity
     private Inventory inventory;
 
+    // relation with the OrderItem domain model
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "product", orphanRemoval = true)
+    private OrderItem orderItem;
+
     // ➜ domain methods
     public void reduceProductCountInInventory() {
         this.inventory.setQuantity(this.inventory.getQuantity() - 1);
