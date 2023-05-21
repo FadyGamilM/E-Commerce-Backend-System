@@ -1,10 +1,15 @@
 package com.development.ecommerce.backend.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+// @Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +42,30 @@ public class Customer {
 
     @Column(name = "encrypted_password", nullable = false)
     private String password;
+
+    // specify that the `customer` attribute in the `Addresses` with the `Address`
+    // domain class relation is mapped to this `customers` relation with this
+    // `Customer` domain class
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
+
+    // ➜ domain methods
+    // to set the address to the owner
+    public void addAddress(Address address) {
+        if (address != null)
+            this.addresses.add(address);
+
+        // then mapp this customer with this address
+        address.setAddressOwner(this);
+    }
+
+    // to remove the address from the owner
+    public void removeAddress(Address address) {
+        if (address != null) {
+            this.addresses.remove(address);
+        }
+        // then update the info in the address side
+        address.setAddressOwner(null);
+    }
+
 }
