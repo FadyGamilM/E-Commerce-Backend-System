@@ -33,4 +33,11 @@ public class Inventory {
     private Product product;
 
     // ➜ domain methods
+    public void reduceQtyBy(Integer qty) {
+        this.quantity -= qty;
+    }
+
+    public void increaseQtyBy(Integer qty) {
+        this.quantity += qty;
+    }
 }
