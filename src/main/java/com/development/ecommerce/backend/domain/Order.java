@@ -32,4 +32,6 @@ public class Order {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "order")
     private List<OrderItem> orderedItems = new ArrayList<OrderItem>();
 
+    @Column(name = "total_price", nullable = false)
+    private Double totalPrice;
 }

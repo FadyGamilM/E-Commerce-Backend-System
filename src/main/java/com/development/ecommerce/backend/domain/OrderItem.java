@@ -19,7 +19,8 @@ public class OrderItem {
     private Long id;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id") // as no order item without product, so the orderItem is the child entity so it
+                                     // will contain the JoinColumn
     private Product product;
 
     @Column(name = "quantity")
@@ -28,4 +29,5 @@ public class OrderItem {
     @ManyToOne(optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
 }
