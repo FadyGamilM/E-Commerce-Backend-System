@@ -1,4 +1,4 @@
-package com.development.ecommerce.backend.api.models;
+package com.development.ecommerce.backend.api.models.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
